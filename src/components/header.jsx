@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 // import { AppBar } from '@mui/material';
 
 import { styled, alpha } from '@mui/material/styles';
@@ -11,7 +11,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
-
+import { Link, useHistory } from 'react-router-dom';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -55,9 +55,51 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const history = useHistory()
+    const [ user, setUser ] = useState('');
+function handleLogin(){
+    fetch('http://localhost:3000/login', {
+  method: 'POST', // or 'PUT'
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    'email': 'demo@demo.com',
+    'password': '123456'
+  }),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+  setUser(data.token);
+  localStorage.setItem('user' , data.token)
+  console.log(localStorage.getItem('user'))
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+    // fetch('http://localhost:3000/login')
+  
+    // .then((res) => res.json())
+    // .then((data) => {
+    //   console.log(data);
+    //   setUser(data.results);
+    // })
+}
+useEffect(()=>{
+  setUser(localStorage.getItem('user'))
+},[])
+useEffect(() => {
+  console.log("localstorage changes");
+}, [user]);
+
+const [login , setLogin] = useState(false)
+function handleLogout(e)
+{
+  setUser('');
+  localStorage.setItem('user' , "")
+}
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: 'black'}}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -76,7 +118,16 @@ export default function Header() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Button color="inherit">Login</Button>
+          {
+          
+             user != "" ? 
+              <Button color="inherit" onClick={(e)=>handleLogout(e)}>Logout</Button> :
+              <Button color="inherit" onClick={(e) => history.push("/login")}>Login</Button> 
+          }
+        
+        {
+          login ? <Link to="/login" /> : null
+        }
         </Toolbar>
       </AppBar>
     </Box>

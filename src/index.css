@@ -5,19 +5,22 @@
 }
 
 body {
-  background-color: #22254b;
-  color: white;
+  background-color: #fff;
+  color: black;
   font-family: "Poppins", sans-serif;
   margin: 0;
 }
 
 .movie {
-  background-color: #373b69;
+  background-color: black;
+  color: white;
   border-radius: 3px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 1rem;
-  width: 250px;
+  width: 300px;
+  position: relative;
+  /* height: 550px; */
 }
 
 .movie img{
@@ -27,8 +30,15 @@ body {
 .movie-container {
   display: flex;
   flex-wrap: wrap;
+  /* align-items: center; */
+  justify-content: center;
 }
-
+.container-main{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
 .movie-info {
   display: flex;
   align-items: center;
@@ -38,4 +48,69 @@ body {
 
 .movie-info h3 {
   margin: 0;
+}
+
+.movie-over {
+  background-color: #fff;
+  color: #22254b;
+  position: absolute;
+  padding: 1rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  max-height: 100%;
+  transform: translateY(101%);
+  transition: transform 0.3s ease-in-out;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.movie:hover .movie-over {
+  transform: translateY(0%);
+}
+form {
+  max-width: 330px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  margin-top: 80px;
+}
+
+.form .form__custom-button {
+  margin-top: 50px !important;
+}
+.loginForm{
+  padding: 10px 15px !important;
+}
+.logintext{
+  margin: 6px 0px !important;
+}
+.loginButton{
+  margin: 6px 0px !important;
+}
+.mainDropdown{
+  width: 300px;
+  margin-top: 30px !important;
+  margin-left: 100px !important;
+}
+.menu{
+  background-color: white;
+  border: 1px solid white;
+  margin-top: 2.5rem;
+}
+
+.menu:active {
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+  .mainDropdown{
+    width: 100%;
+    margin-top: 30px !important;
+    margin-left: 0px !important;
+  }
 }
